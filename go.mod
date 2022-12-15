@@ -1,4 +1,4 @@
-module github.com/edgelesssys/era
+module github.com/OverOrion/era
 
 go 1.17
 
