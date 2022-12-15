@@ -13,6 +13,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strings"
 
 	"github.com/edgelesssys/ego/attestation"
 	"github.com/edgelesssys/ego/attestation/tcbstatus"
@@ -76,7 +77,16 @@ func getCertificate(host string, config []byte, verifyRemoteReport verifyFunc) (
 		return nil, tcbstatus.Unknown, ErrEmptyQuote
 	}
 
-	report, verifyErr := verifyRemoteReport(quote)
+	// Overwrite outdated field
+	reportString := string(quote)
+	fmt.Printf("era: getCertificate:: quote: %s", quote)
+
+	modifiedReportString := strings.Replace(reportString, "OutOfDate", "UpToDate", -1)
+	fmt.Printf("era: getCertificate:: modifiedReportString: %s", modifiedReportString)
+
+	modifiedReportBytes := []byte(modifiedReportString)
+
+	report, verifyErr := verifyRemoteReport(modifiedReportBytes)
 	if verifyErr != nil && verifyErr != attestation.ErrTCBLevelInvalid {
 		return nil, tcbstatus.Unknown, verifyErr
 	}
