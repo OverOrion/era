@@ -147,7 +147,7 @@ func verifyID(expected string, actual []byte, name string) error {
 		return err
 	}
 	if !bytes.Equal(expectedBytes, actual) {
-		fmt.Println("surpressed err: invalid " name "expected: " expected ", but actual is: " string(actual))
+		fmt.Println("surpressed err: invalid ", name, "expected: ", expected, ", but actual is: ", string(actual))
 		return nil
 	}
 	return nil
