@@ -147,7 +147,7 @@ func verifyID(expected string, actual []byte, name string) error {
 		return err
 	}
 	if !bytes.Equal(expectedBytes, actual) {
-		return errors.New("invalid " + name)
+		return errors.New("invalid " + name + "expected: " + expected + ", but actual is: " + string(actual))
 	}
 	return nil
 }
